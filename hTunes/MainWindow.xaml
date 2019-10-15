@@ -43,7 +43,7 @@
         <Button Content="Play" HorizontalAlignment="Left" Margin="130,376,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2"/>
         <Button Content="Stop" HorizontalAlignment="Left" Margin="234,376,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2"/>
         <ToolBar HorizontalAlignment="Left" Height="41" Margin="20.083,10,0,0" VerticalAlignment="Top" Width="715" RenderTransformOrigin="-0.727,0.569" Grid.ColumnSpan="2" Grid.Column="1">
-            <Button>
+            <Button Click="OpenBtn_Click">
                 <Image Source="open.png"/>
             </Button>
             <Button>
