@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:hTunes"
         mc:Ignorable="d"
-        Title="h2 Tunes" Height="450" Width="800">
+        Title="hTunes" Height="450" Width="800" Icon="music.png">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="11*"/>
@@ -31,8 +31,8 @@
             </DataGrid.RowDetailsTemplate>
 
         </DataGrid>
-        <Button Content="Play" HorizontalAlignment="Left" Margin="130,364,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2"/>
-        <Button Content="Stop" HorizontalAlignment="Left" Margin="234,364,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2"/>
+        <Button Content="Play" HorizontalAlignment="Left" Margin="130,376,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2"/>
+        <Button Content="Stop" HorizontalAlignment="Left" Margin="234,376,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2"/>
         <ToolBar HorizontalAlignment="Left" Height="41" Margin="20.083,10,0,0" VerticalAlignment="Top" Width="715" RenderTransformOrigin="-0.727,0.569" Grid.ColumnSpan="2" Grid.Column="1">
             <Button>
                 <Image Source="open.png"/>
