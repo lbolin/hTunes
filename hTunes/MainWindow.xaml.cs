@@ -28,18 +28,18 @@ namespace hTunes
         {
             InitializeComponent();
 
-            try
-            {
+           //try
+           // {
                 musicLib = new MusicLib();
-            }
-            catch (Exception e)
-            {
-                //TODO - show error message
-                throw new Exception("Failed here");
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //   // TODO - show error message
+            //    throw new Exception("Failed here");
+            //}
 
-            //load playlist list
-            playlistListBox.Items.Add("All Music");
+                //load playlist list
+                playlistListBox.Items.Add("All Music");
             foreach (var playlist in musicLib.Playlists)
             {
                 playlistListBox.Items.Add(playlist);
