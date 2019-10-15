@@ -20,9 +20,38 @@ namespace hTunes
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MusicLib musicLib;
+        private List<Song> displayedSongs;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            try
+            {
+                musicLib = new MusicLib();
+            }
+            catch (Exception e)
+            {
+                //TODO - show error message
+                throw new Exception("Failed here");
+            }
+
+            //load playlist list
+            playlistListBox.Items.Add("All Music");
+            foreach (var playlist in musicLib.Playlists)
+            {
+                playlistListBox.Items.Add(playlist);
+            }
+
+            //load songs
+            displayedSongs = new List<Song>();
+            dataGrid.ItemsSource = displayedSongs;
+            foreach (var songId in musicLib.SongIds)
+            {
+                var song = musicLib.GetSong(int.Parse(songId));
+                displayedSongs.Add(song);
+            }
         }
     }
 }

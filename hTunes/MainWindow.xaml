@@ -12,12 +12,15 @@
             <ColumnDefinition Width="40*"/>
             <ColumnDefinition Width="744*"/>
         </Grid.ColumnDefinitions>
-        <ListBox HorizontalAlignment="Left" Height="286" Margin="20.083,73,0,0" VerticalAlignment="Top" Width="127" RenderTransformOrigin="0.476,0.501" Grid.ColumnSpan="2" Grid.Column="1"/>
-        <DataGrid x:Name="dataGrid"  AutoGenerateColumns="False"   HorizontalAlignment="Left" Height="286" Margin="130,73,0,0" VerticalAlignment="Top" Width="565" Grid.Column="2">
+        <ListBox HorizontalAlignment="Left" Height="286" Margin="20.083,73,0,0" VerticalAlignment="Top" Width="127" RenderTransformOrigin="0.476,0.501" 
+                 Grid.ColumnSpan="2" Grid.Column="1" Name="playlistListBox"/>
+        <DataGrid x:Name="dataGrid"  AutoGenerateColumns="False"   HorizontalAlignment="Left" Height="286" Margin="130,73,0,0" 
+                  VerticalAlignment="Top" Width="565" Grid.Column="2" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding title}" Header="Title" Width="250"/>
-                <DataGridTextColumn Binding="{Binding artist}" Header="Artist" Width="155"/>
-                <DataGridTextColumn Binding="{Binding album}" Header="Album" Width="159"/>
+                <DataGridTextColumn Binding="{Binding Title}" Header="Title" Width="250"/>
+                <DataGridTextColumn Binding="{Binding Artist}" Header="Artist" Width="155"/>
+                <DataGridTextColumn Binding="{Binding Album}" Header="Album" Width="159"/>
+                <DataGridTextColumn Binding="{Binding Genre}" Header="Genre" Width="159"/>
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
