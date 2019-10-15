@@ -32,6 +32,12 @@
                     </Border>
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                <MenuItem Header="Play" />
+                <MenuItem Header="Remove"/>
+            </ContextMenu>
+            </DataGrid.ContextMenu>
 
         </DataGrid>
         <Button Content="Play" HorizontalAlignment="Left" Margin="130,376,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2"/>
