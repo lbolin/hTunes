@@ -17,7 +17,7 @@
         <DataGrid x:Name="dataGrid"  AutoGenerateColumns="False"   HorizontalAlignment="Left" Height="286" Margin="130,73,0,0" 
                   VerticalAlignment="Top" Width="565" Grid.Column="2" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Title}" Header="Title" Width="250"/>
+                <DataGridTextColumn Binding="{Binding Title}" Header="Title" Width="100"/>
                 <DataGridTextColumn Binding="{Binding Artist}" Header="Artist" Width="155"/>
                 <DataGridTextColumn Binding="{Binding Album}" Header="Album" Width="159"/>
                 <DataGridTextColumn Binding="{Binding Genre}" Header="Genre" Width="159"/>
