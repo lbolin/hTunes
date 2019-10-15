@@ -13,11 +13,11 @@
             <ColumnDefinition Width="744*"/>
         </Grid.ColumnDefinitions>
         <ListBox HorizontalAlignment="Left" Height="286" Margin="20.083,73,0,0" VerticalAlignment="Top" Width="127" RenderTransformOrigin="0.476,0.501" 
-                 Grid.ColumnSpan="2" Grid.Column="1" Name="playlistListBox"/>
+                 Grid.ColumnSpan="2" Grid.Column="1" Name="playlistListBox" SelectionChanged="playlist_Selected"/>
         <DataGrid x:Name="dataGrid"  AutoGenerateColumns="False"   HorizontalAlignment="Left" Height="286" Margin="130,73,0,0" 
                   VerticalAlignment="Top" Width="565" Grid.Column="2" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Title}" Header="Title" Width="250"/>
+                <DataGridTextColumn Binding="{Binding Title}" Header="Title" Width="100"/>
                 <DataGridTextColumn Binding="{Binding Artist}" Header="Artist" Width="155"/>
                 <DataGridTextColumn Binding="{Binding Album}" Header="Album" Width="159"/>
                 <DataGridTextColumn Binding="{Binding Genre}" Header="Genre" Width="159"/>

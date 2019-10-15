@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data;
 
 namespace hTunes
 {
@@ -52,6 +53,42 @@ namespace hTunes
                 var song = musicLib.GetSong(int.Parse(songId));
                 displayedSongs.Add(song);
             }
+        }
+
+        private void playlist_Selected(object sender, RoutedEventArgs e)
+        {
+            var listbox = sender as ListBox;
+            if (listbox == null) return;
+
+            var playlist = listbox.SelectedItem.ToString();
+
+            if (playlist == "All Music")
+            {
+                displayedSongs = new List<Song>();
+                foreach (var songId in musicLib.SongIds)
+                {
+                    var song = musicLib.GetSong(int.Parse(songId));
+                    displayedSongs.Add(song);
+                }
+            }
+            else
+            {
+                if (!musicLib.PlaylistExists(playlist)) return;
+
+                displayedSongs = new List<Song>();
+                                
+                foreach (DataRow row in musicLib.SongsForPlaylist(playlist).Rows)
+                {
+                    Song song = new Song();
+                    song.Id = int.Parse(row["id"].ToString());
+                    song.Title = row["title"].ToString();
+                    song.Artist = row["artist"].ToString();
+                    song.Album = row["album"].ToString();
+                    song.Genre = row["genre"].ToString();
+
+                    displayedSongs.Add(song);
+                }
+            }            
         }
     }
 }
