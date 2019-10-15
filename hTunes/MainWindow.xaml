@@ -46,10 +46,10 @@
             <Button Click="OpenBtn_Click">
                 <Image Source="open.png"/>
             </Button>
-            <Button>
+            <Button Click="newBtn_Click">
                 <Image Source="new.png"/>
             </Button>
-            <Button>
+            <Button Click="infoBtn_Click">
                 <Image Source="info.png"/>
             </Button>
 

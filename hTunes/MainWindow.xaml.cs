@@ -106,5 +106,15 @@ namespace hTunes
             //    TextBlock1.Text = System.IO.File.ReadAllText(openFileDlg.FileName);
             //}
         }
+
+        private void newBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ;
+        }
+
+        private void infoBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ;
+        }
     }
 }
