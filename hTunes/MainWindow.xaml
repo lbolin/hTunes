@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:hTunes"
         mc:Ignorable="d"
-        Title="hTunes" Height="450" Width="800" Icon="music.png">
+        Title="hTunes" Height="450" Width="800" Icon="music.ico">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="11*"/>
@@ -15,9 +15,9 @@
         <ListBox HorizontalAlignment="Left" Height="286" Margin="20.083,73,0,0" VerticalAlignment="Top" Width="127" RenderTransformOrigin="0.476,0.501" Grid.ColumnSpan="2" Grid.Column="1"/>
         <DataGrid x:Name="dataGrid"  AutoGenerateColumns="False"   HorizontalAlignment="Left" Height="286" Margin="130,73,0,0" VerticalAlignment="Top" Width="565" Grid.Column="2">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding title}" Header="Title"/>
-                <DataGridTextColumn Binding="{Binding artist}" Header=" Artist"/>
-                <DataGridTextColumn Binding="{Binding album}" Header="Album"/>
+                <DataGridTextColumn Binding="{Binding title}" Header="Title" Width="250"/>
+                <DataGridTextColumn Binding="{Binding artist}" Header="Artist" Width="155"/>
+                <DataGridTextColumn Binding="{Binding album}" Header="Album" Width="159"/>
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
