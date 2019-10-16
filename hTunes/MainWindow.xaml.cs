@@ -28,15 +28,7 @@ namespace hTunes
         {
             InitializeComponent();
 
-            try
-            {
-                musicLib = new MusicLib();
-            }
-            catch (Exception e)
-            {
-                // TODO - show error message
-                throw new Exception("Failed here");
-            }
+            musicLib = new MusicLib();
 
             //load playlist list
             playlistListBox.Items.Add("All Music");
@@ -64,7 +56,7 @@ namespace hTunes
 
             if (playlist == "All Music")
             {
-                displayedSongs = new List<Song>();
+                displayedSongs.Clear();
                 foreach (var songId in musicLib.SongIds)
                 {
                     var song = musicLib.GetSong(int.Parse(songId));
@@ -75,7 +67,7 @@ namespace hTunes
             {
                 if (!musicLib.PlaylistExists(playlist)) return;
 
-                displayedSongs = new List<Song>();
+                displayedSongs.Clear();
                                 
                 foreach (DataRow row in musicLib.SongsForPlaylist(playlist).Rows)
                 {
