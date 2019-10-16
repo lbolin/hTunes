@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -140,13 +141,31 @@ namespace hTunes
 
             // Launch OpenFileDialog by calling ShowDialog method
             Nullable<bool> result = openFileDlg.ShowDialog();
+
             // Get the selected file name and display in a TextBox.
             // Load content of file in a TextBlock
-            //if (result == true)
-            //{
-            //    FileNameTextBox.Text = openFileDlg.FileName;
-            //    TextBlock1.Text = System.IO.File.ReadAllText(openFileDlg.FileName);
-            //}
+            if (result == true)
+            {
+                musicLib.AddSong(openFileDlg.FileName);
+
+                table.Rows.Clear();
+                foreach (DataRow row in musicLib.Songs.Rows)
+                {
+                    DataRow newRow = table.NewRow();
+                    newRow["id"] = row["id"];
+                    newRow["title"] = row["title"];
+                    newRow["artist"] = row["artist"];
+                    newRow["album"] = row["album"];
+                    newRow["filename"] = row["filename"];
+                    newRow["length"] = row["length"];
+                    newRow["genre"] = row["genre"];
+                    newRow["url"] = row["url"];
+                    newRow["albumImage"] = row["albumImage"];
+                    table.Rows.Add(newRow);
+                }
+
+                dataGrid.Items.Refresh();
+            }            
         }
 
         private void newBtn_Click(object sender, RoutedEventArgs e)
@@ -161,10 +180,10 @@ namespace hTunes
 
         private void playbtn_click(object sender, RoutedEventArgs e)
         {
-            var song = dataGrid.SelectedItem as Song;
+            DataRow song = dataGrid.SelectedItem as DataRow;
             if (song == null) return;
                         
-            mediaPlayer.Open(new Uri(song.Filename));
+            mediaPlayer.Open(new Uri(song["filename"].ToString()));
             mediaPlayer.Play();
         }
 
@@ -179,10 +198,10 @@ namespace hTunes
         }
 
 
-        async private Task<string> MakeApiCall(Song s)
+        async private Task<string> MakeApiCall(String Artist, String Title)
         {
             String url = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=" + API_KEY + "&" +
-                "artist=" + WebUtility.UrlEncode(s.Artist) + "&track=" + WebUtility.UrlEncode(s.Title);
+                "artist=" + WebUtility.UrlEncode(Artist) + "&track=" + WebUtility.UrlEncode(Title);
             try
             {
                 HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
@@ -213,11 +232,25 @@ namespace hTunes
             return null;
         }
 
-        private void songSelection_changed(object sender, SelectedCellsChangedEventArgs e)
+        async private void songSelection_changed(object sender, SelectedCellsChangedEventArgs e)
         {
-            Song s = (Song)(((DataGrid)sender).SelectedCells[0].Item);
-            
-            bool halt = true;
+            DataRowView rowView = ((DataGrid)sender).SelectedCells[0].Item as DataRowView;
+            if (rowView == null) return;
+
+
+            string fileName = rowView.Row["albumimage"].ToString();
+            if (fileName == "")
+            {
+                await Task.Run(() =>
+                {
+                    string result = MakeApiCall(rowView.Row["artist"].ToString(), rowView.Row["album"].ToString()).Result;
+                    rowView.Row["filename"] = result;
+                    Dispatcher.Invoke((Action)delegate
+                    {
+                        dataGrid.Items.Refresh();
+                    });
+                });                
+            }
         }
     }
 }
