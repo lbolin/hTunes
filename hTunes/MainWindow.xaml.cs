@@ -68,7 +68,7 @@ namespace hTunes
                 if (!musicLib.PlaylistExists(playlist)) return;
 
                 displayedSongs.Clear();
-                                
+
                 foreach (DataRow row in musicLib.SongsForPlaylist(playlist).Rows)
                 {
                     Song song = new Song();
@@ -80,7 +80,8 @@ namespace hTunes
 
                     displayedSongs.Add(song);
                 }
-            }            
+            }
+            dataGrid.Items.Refresh();
         }
 
         private void OpenBtn_Click(object sender, RoutedEventArgs e)
