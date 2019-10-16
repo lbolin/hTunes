@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data;
+using System.Net;
+using System.Xml;
+using System.IO;
 
 namespace hTunes
 {
@@ -21,9 +24,11 @@ namespace hTunes
     /// </summary>
     public partial class MainWindow : Window
     {
+        const string API_KEY = "e1d7cac3d825c39c69e1e0f2a73ca7f8";
+
         private MediaPlayer mediaPlayer;
         private MusicLib musicLib;
-        private List<Song> displayedSongs;
+        private DataTable table;
 
         public MainWindow()
         {
@@ -40,13 +45,42 @@ namespace hTunes
             }
 
             //load songs
-            displayedSongs = new List<Song>();
-            dataGrid.ItemsSource = displayedSongs;
-            foreach (var songId in musicLib.SongIds)
+            table = new DataTable();
+            table.Columns.Add(new DataColumn("id", typeof(int)));
+            table.Columns.Add(new DataColumn("title", typeof(string)));
+            table.Columns.Add(new DataColumn("artist", typeof(string)));
+            table.Columns.Add(new DataColumn("album", typeof(string)));
+            table.Columns.Add(new DataColumn("filename", typeof(string)));
+            table.Columns.Add(new DataColumn("length", typeof(string)));
+            table.Columns.Add(new DataColumn("genre", typeof(string)));
+            table.Columns.Add(new DataColumn("url", typeof(string)));
+            table.Columns.Add(new DataColumn("albumImage", typeof(string)));
+
+            foreach (DataRow row in musicLib.Songs.Rows)
             {
-                var song = musicLib.GetSong(int.Parse(songId));
-                displayedSongs.Add(song);
+                DataRow newRow = table.NewRow();
+                newRow["id"] = row["id"];
+                newRow["title"] = row["title"];
+                newRow["artist"] = row["artist"];
+                newRow["album"] = row["album"];
+                newRow["filename"] = row["filename"];
+                newRow["length"] = row["length"];
+                newRow["genre"] = row["genre"];
+                newRow["url"] = row["url"];
+                newRow["albumImage"] = row["albumImage"];
+                table.Rows.Add(newRow);
             }
+
+            dataGrid.ItemsSource = table.DefaultView;
+
+
+            //displayedSongs = new List<Song>();
+            //dataGrid.ItemsSource = displayedSongs;
+            //foreach (var songId in musicLib.SongIds)
+            //{
+            //    var song = musicLib.GetSong(int.Parse(songId));
+            //    displayedSongs.Add(song);
+            //}
         }
 
         private void playlist_Selected(object sender, RoutedEventArgs e)
@@ -58,29 +92,41 @@ namespace hTunes
 
             if (playlist == "All Music")
             {
-                displayedSongs.Clear();
-                foreach (var songId in musicLib.SongIds)
+                table.Rows.Clear();
+                foreach (DataRow row in musicLib.Songs.Rows)
                 {
-                    var song = musicLib.GetSong(int.Parse(songId));
-                    displayedSongs.Add(song);
+                    DataRow newRow = table.NewRow();
+                    newRow["id"] = row["id"];
+                    newRow["title"] = row["title"];
+                    newRow["artist"] = row["artist"];
+                    newRow["album"] = row["album"];
+                    newRow["filename"] = row["filename"];
+                    newRow["length"] = row["length"];
+                    newRow["genre"] = row["genre"];
+                    newRow["url"] = row["url"];
+                    newRow["albumImage"] = row["albumImage"];
+                    table.Rows.Add(newRow);
                 }
             }
             else
             {
                 if (!musicLib.PlaylistExists(playlist)) return;
 
-                displayedSongs.Clear();
+                table.Rows.Clear();
 
                 foreach (DataRow row in musicLib.SongsForPlaylist(playlist).Rows)
                 {
-                    Song song = new Song();
-                    song.Id = int.Parse(row["id"].ToString());
-                    song.Title = row["title"].ToString();
-                    song.Artist = row["artist"].ToString();
-                    song.Album = row["album"].ToString();
-                    song.Genre = row["genre"].ToString();
-
-                    displayedSongs.Add(song);
+                    DataRow newRow = table.NewRow();
+                    newRow["id"] = row["id"];
+                    newRow["title"] = row["title"];
+                    newRow["artist"] = row["artist"];
+                    newRow["album"] = row["album"];
+                    newRow["filename"] = "";
+                    newRow["length"] = "";
+                    newRow["genre"] = row["genre"];
+                    newRow["url"] = "";
+                    newRow["albumImage"] = "";
+                    table.Rows.Add(newRow);
                 }
             }
             dataGrid.Items.Refresh();
@@ -130,6 +176,48 @@ namespace hTunes
         private void removebtn_click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+
+        async private Task<string> MakeApiCall(Song s)
+        {
+            String url = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=" + API_KEY + "&" +
+                "artist=" + WebUtility.UrlEncode(s.Artist) + "&track=" + WebUtility.UrlEncode(s.Title);
+            try
+            {
+                HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+                using (WebResponse response = await request.GetResponseAsync())
+                {
+                    Stream strm = response.GetResponseStream();
+                    using (XmlTextReader reader = new XmlTextReader(strm))
+                    {
+                        while (reader.Read())
+                        {
+                            if (reader.NodeType == XmlNodeType.Element)
+                            {
+                                if (reader.Name == "image")
+                                {
+                                    if (reader.GetAttribute("size") == "medium")
+                                        return reader.ReadString();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (WebException e)
+            {
+                // A 400 response is returned when the song is not in their library
+                Console.WriteLine("Error: " + e.Message);
+            }
+            return null;
+        }
+
+        private void songSelection_changed(object sender, SelectedCellsChangedEventArgs e)
+        {
+            Song s = (Song)(((DataGrid)sender).SelectedCells[0].Item);
+            
+            bool halt = true;
         }
     }
 }

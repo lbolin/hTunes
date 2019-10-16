@@ -15,18 +15,19 @@
         <ListBox HorizontalAlignment="Left" Height="286" Margin="20.083,73,0,0" VerticalAlignment="Top" Width="127" RenderTransformOrigin="0.476,0.501" 
                  Grid.ColumnSpan="2" Grid.Column="1" Name="playlistListBox" SelectionChanged="playlist_Selected"/>
         <DataGrid x:Name="dataGrid"  AutoGenerateColumns="False"   HorizontalAlignment="Left" Height="286" Margin="130,73,0,0" 
-                  VerticalAlignment="Top" Width="565" Grid.Column="2" CanUserAddRows="False" SelectionMode="Single" IsReadOnly="True">
+                  VerticalAlignment="Top" Width="565" Grid.Column="2" CanUserAddRows="False" SelectionMode="Single" IsReadOnly="True"
+                  SelectedCellsChanged="songSelection_changed">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Title}" Header="Title" Width="100"/>
-                <DataGridTextColumn Binding="{Binding Artist}" Header="Artist" Width="155"/>
-                <DataGridTextColumn Binding="{Binding Album}" Header="Album" Width="159"/>
-                <DataGridTextColumn Binding="{Binding Genre}" Header="Genre" Width="159"/>
+                <DataGridTextColumn Binding="{Binding title}" Header="Title" Width="100"/>
+                <DataGridTextColumn Binding="{Binding artist}" Header="Artist" Width="155"/>
+                <DataGridTextColumn Binding="{Binding album}" Header="Album" Width="159"/>
+                <DataGridTextColumn Binding="{Binding genre}" Header="Genre" Width="159"/>
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
                     <Border Background="AliceBlue">
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding Title}" />
+                            <TextBlock Text="{Binding title}" />
                             <Image Source="{Binding albumImage}" />
                         </StackPanel>
                     </Border>
