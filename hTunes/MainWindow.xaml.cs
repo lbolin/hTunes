@@ -21,6 +21,7 @@ namespace hTunes
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MediaPlayer mediaPlayer;
         private MusicLib musicLib;
         private List<Song> displayedSongs;
 
@@ -29,6 +30,7 @@ namespace hTunes
             InitializeComponent();
 
             musicLib = new MusicLib();
+            mediaPlayer = new MediaPlayer();
 
             //load playlist list
             playlistListBox.Items.Add("All Music");
@@ -109,6 +111,25 @@ namespace hTunes
         private void infoBtn_Click(object sender, RoutedEventArgs e)
         {
             ;
+        }
+
+        private void playbtn_click(object sender, RoutedEventArgs e)
+        {
+            var song = dataGrid.SelectedItem as Song;
+            if (song == null) return;
+                        
+            mediaPlayer.Open(new Uri(song.Filename));
+            mediaPlayer.Play();
+        }
+
+        private void stopbtn_click(object sender, RoutedEventArgs e)
+        {
+            mediaPlayer.Stop();
+        }
+
+        private void removebtn_click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
