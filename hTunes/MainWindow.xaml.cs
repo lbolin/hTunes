@@ -28,18 +28,18 @@ namespace hTunes
         {
             InitializeComponent();
 
-           //try
-           // {
+            try
+            {
                 musicLib = new MusicLib();
-            //}
-            //catch (Exception e)
-            //{
-            //   // TODO - show error message
-            //    throw new Exception("Failed here");
-            //}
+            }
+            catch (Exception e)
+            {
+                // TODO - show error message
+                throw new Exception("Failed here");
+            }
 
-                //load playlist list
-                playlistListBox.Items.Add("All Music");
+            //load playlist list
+            playlistListBox.Items.Add("All Music");
             foreach (var playlist in musicLib.Playlists)
             {
                 playlistListBox.Items.Add(playlist);
@@ -95,7 +95,7 @@ namespace hTunes
         {
             // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog();
-            openFileDlg.Filter = "All Media Files | *.mp3;*.m4a;*.wma;*.wav ";
+            openFileDlg.Filter = "Media Files | *.mp3;*.m4a;*.wma;*.wav ";
 
             // Launch OpenFileDialog by calling ShowDialog method
             Nullable<bool> result = openFileDlg.ShowDialog();
