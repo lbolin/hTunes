@@ -29,6 +29,8 @@ namespace hTunes
         private MusicLib musicLib;
         private List<Song> displayedSongs;
 
+        private Point startPoint;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -61,33 +63,7 @@ namespace hTunes
 
         private void playlist_Selected(object sender, RoutedEventArgs e)
         {
-            var listbox = sender as ListBox;
-            if (listbox == null) return;
-
-            var playlist = listbox.SelectedItem.ToString();
-
-            if (playlist == "All Music")
-            {
-                displayedSongs.Clear();
-                foreach (DataRow row in musicLib.Songs.Rows)
-                {
-                    Song s = musicLib.GetSong(int.Parse(row["id"].ToString()));
-                    displayedSongs.Add(s);
-                }
-            }
-            else
-            {
-                if (!musicLib.PlaylistExists(playlist)) return;
-
-                displayedSongs.Clear();
-
-                foreach (DataRow row in musicLib.SongsForPlaylist(playlist).Rows)
-                {
-                    Song s = musicLib.GetSong(int.Parse(row["id"].ToString()));
-                    displayedSongs.Add(s);
-                }
-            }
-            dataGrid.Items.Refresh();
+            RefreshSongs();
         }
 
         private void OpenBtn_Click(object sender, RoutedEventArgs e)
@@ -130,12 +106,7 @@ namespace hTunes
             {
                 musicLib.AddPlaylist(name);
 
-                playlistListBox.Items.Clear();
-                playlistListBox.Items.Add("All Music");
-                foreach (var playlist in musicLib.Playlists)
-                {
-                    playlistListBox.Items.Add(playlist);
-                }
+                RefreshPlaylists();
             }
         }
 
@@ -160,8 +131,88 @@ namespace hTunes
         }
 
         private void removebtn_click(object sender, RoutedEventArgs e)
-        {
+        {            
+            var playlist = playlistListBox.SelectedItem?.ToString();
+            Song s = dataGrid.SelectedItem as Song;
+            if (playlist == "All Music" || playlist == null)
+            {
+                musicLib.DeleteSong(s.Id);
+            }
+            else
+            {
+                //musicLib.RemoveSongFromPlaylist()
+                //remove from playlist
+            }
 
+            RefreshSongs();
+        }
+
+        private void playlistListBox_DragOver(object sender, DragEventArgs e)
+        {
+            Label playlist = sender as Label;
+            if (playlist != null)
+            {
+                Song s = (Song)e.Data.GetData(e.Data.GetFormats()[0]);
+                musicLib.AddSongToPlaylist(s.Id, playlist.Content.ToString());
+
+                playlist_Selected(playlistListBox, null);
+            }
+        }
+
+        private void dataGrid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            startPoint = e.GetPosition(null);
+        }
+
+        private void dataGrid_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point mousePos = e.GetPosition(null);
+            Vector diff = startPoint - mousePos;
+
+            if (e.LeftButton == MouseButtonState.Pressed && 
+                (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance || 
+                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            {
+                DragDrop.DoDragDrop(dataGrid, dataGrid.SelectedItem, DragDropEffects.Copy);
+            }
+        }
+
+        private void RefreshSongs()
+        {            
+            var playlist = playlistListBox.SelectedItem?.ToString();
+
+            if (playlist == "All Music" || playlist == null)
+            {
+                displayedSongs.Clear();
+                foreach (DataRow row in musicLib.Songs.Rows)
+                {
+                    Song s = musicLib.GetSong(int.Parse(row["id"].ToString()));
+                    displayedSongs.Add(s);
+                }
+            }
+            else
+            {
+                if (!musicLib.PlaylistExists(playlist)) return;
+
+                displayedSongs.Clear();
+
+                foreach (DataRow row in musicLib.SongsForPlaylist(playlist).Rows)
+                {
+                    Song s = musicLib.GetSong(int.Parse(row["id"].ToString()));
+                    displayedSongs.Add(s);
+                }
+            }
+            dataGrid.Items.Refresh();
+        }
+
+        private void RefreshPlaylists()
+        {
+            playlistListBox.Items.Clear();
+            playlistListBox.Items.Add("All Music");
+            foreach (var playlist in musicLib.Playlists)
+            {
+                playlistListBox.Items.Add(playlist);
+            }
         }
     }
 }

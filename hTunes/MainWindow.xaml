@@ -13,9 +13,16 @@
             <ColumnDefinition Width="744*"/>
         </Grid.ColumnDefinitions>
         <ListBox HorizontalAlignment="Left" Height="286" Margin="20.083,73,0,0" VerticalAlignment="Top" Width="127" RenderTransformOrigin="0.476,0.501" 
-                 Grid.ColumnSpan="2" Grid.Column="1" Name="playlistListBox" SelectionChanged="playlist_Selected"/>
+                 Grid.ColumnSpan="2" Grid.Column="1" Name="playlistListBox" SelectionChanged="playlist_Selected">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding}" AllowDrop="True" Drop="playlistListBox_DragOver" ></Label>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <DataGrid x:Name="dataGrid"  AutoGenerateColumns="False"   HorizontalAlignment="Left" Height="286" Margin="130,73,0,0" 
-                  VerticalAlignment="Top" Width="565" Grid.Column="2" CanUserAddRows="False" SelectionMode="Single" IsReadOnly="True">
+                  VerticalAlignment="Top" Width="565" Grid.Column="2" CanUserAddRows="False" SelectionMode="Single" IsReadOnly="True"
+                  PreviewMouseLeftButtonDown="dataGrid_PreviewMouseLeftButtonDown" MouseMove="dataGrid_MouseMove">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id}" Visibility="Hidden"/>
                 <DataGridTextColumn Binding="{Binding Title}" Header="Title" Width="100"/>
