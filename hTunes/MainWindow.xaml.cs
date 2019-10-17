@@ -180,10 +180,11 @@ namespace hTunes
 
         private void playbtn_click(object sender, RoutedEventArgs e)
         {
-            DataRow song = dataGrid.SelectedItem as DataRow;
+            DataRowView song = dataGrid.SelectedItem as DataRowView;
             if (song == null) return;
-                        
-            mediaPlayer.Open(new Uri(song["filename"].ToString()));
+
+            Song s = musicLib.GetSong(int.Parse(song["id"].ToString()));
+            mediaPlayer.Open(new Uri(s.Filename));
             mediaPlayer.Play();
         }
 
