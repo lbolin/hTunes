@@ -6,13 +6,18 @@ using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Data;
+using System.Net;
+using System.IO;
+using System.Xml;
+using System.Threading.Tasks;
 
 namespace hTunes
 {
     class MusicLib
     {
         private DataSet musicDataSet;
-
+        
+        private const string API_KEY = "e1d7cac3d825c39c69e1e0f2a73ca7f8";
         public const string XML_MUSICFILE = "music.xml";
         public const string XSD_MUSICFILE = "music.xsd";
 
@@ -75,7 +80,9 @@ namespace hTunes
             row["filename"] = s.Filename;
             row["length"] = s.Length;
             row["genre"] = s.Genre;
-            table.Rows.Add(row);
+            row["albumImage"] = GetApiData(s.Artist, s.Album);
+
+            table.Rows.Add(row);            
 
             // Update this song's ID
             s.Id = Convert.ToInt32(row["id"]);
@@ -131,6 +138,7 @@ namespace hTunes
                 song.Genre = row["genre"].ToString();
                 song.Length = row["length"].ToString();
                 song.Filename = row["filename"].ToString();
+                song.AlbumImage = row["albumImage"].ToString();
 
                 return song;
             }
@@ -453,6 +461,40 @@ namespace hTunes
             }
 
             return table;
+        }
+
+        async Task<string> GetApiData(string artist, string title)
+        {
+            String url = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=" + API_KEY + "&" +
+                "artist=" + WebUtility.UrlEncode(artist) + "&track=" + WebUtility.UrlEncode(title);
+            try
+            {
+                HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+                using (WebResponse response = await request.GetResponseAsync())
+                {
+                    Stream strm = response.GetResponseStream();
+                    using (XmlTextReader reader = new XmlTextReader(strm))
+                    {
+                        while (reader.Read())
+                        {
+                            if (reader.NodeType == XmlNodeType.Element)
+                            {
+                                if (reader.Name == "image")
+                                {
+                                    if (reader.GetAttribute("size") == "medium")
+                                        return reader.ReadString();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (WebException e)
+            {
+                // A 400 response is returned when the song is not in their library
+                Console.WriteLine("Error: " + e.Message);
+            }
+            return "";
         }
     }
 }
