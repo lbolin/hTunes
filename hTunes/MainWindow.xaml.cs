@@ -80,7 +80,7 @@ namespace hTunes
             if (result == true)
             {
                 Song s = musicLib.AddSong(openFileDlg.FileName);
-                
+
                 displayedSongs.Clear();
                 foreach (DataRow row in musicLib.Songs.Rows)
                 {
@@ -94,7 +94,7 @@ namespace hTunes
                 }
 
                 dataGrid.Items.Refresh();
-            }            
+            }
         }
 
         private void newBtn_Click(object sender, RoutedEventArgs e)
@@ -131,20 +131,29 @@ namespace hTunes
         }
 
         private void removebtn_click(object sender, RoutedEventArgs e)
-        {            
-            var playlist = playlistListBox.SelectedItem?.ToString();
-            Song s = dataGrid.SelectedItem as Song;
-            if (playlist == "All Music" || playlist == null)
-            {
-                musicLib.DeleteSong(s.Id);
-            }
-            else
-            {
-                //musicLib.RemoveSongFromPlaylist()
-                //remove from playlist
-            }
+        {
+            string msgtext = "Are you sure you want to remove this song?";
+            string txt = "Confirmation";
+            MessageBoxImage icon = MessageBoxImage.Question;
 
-            RefreshSongs();
+            MessageBoxButton button = MessageBoxButton.YesNo;
+
+            if (MessageBox.Show(msgtext, txt, button, icon) == MessageBoxResult.Yes)
+            { 
+                var playlist = playlistListBox.SelectedItem?.ToString();
+                Song s = dataGrid.SelectedItem as Song;
+                if (playlist == "All Music" || playlist == null)
+                {
+                    musicLib.DeleteSong(s.Id);
+                }
+                else
+                {
+                    //musicLib.RemoveSongFromPlaylist()
+                    //remove from playlist
+                }
+
+                RefreshSongs();
+            }
         }
 
         private void playlistListBox_DragOver(object sender, DragEventArgs e)
@@ -169,8 +178,8 @@ namespace hTunes
             Point mousePos = e.GetPosition(null);
             Vector diff = startPoint - mousePos;
 
-            if (e.LeftButton == MouseButtonState.Pressed && 
-                (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance || 
+            if (e.LeftButton == MouseButtonState.Pressed &&
+                (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
                 Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
             {
                 DragDrop.DoDragDrop(dataGrid, dataGrid.SelectedItem, DragDropEffects.Copy);
@@ -178,7 +187,7 @@ namespace hTunes
         }
 
         private void RefreshSongs()
-        {            
+        {
             var playlist = playlistListBox.SelectedItem?.ToString();
 
             if (playlist == "All Music" || playlist == null)
@@ -214,5 +223,19 @@ namespace hTunes
                 playlistListBox.Items.Add(playlist);
             }
         }
+        //private void ShowMessageBox_Click(object sender, RoutedEventArgs e)
+        //{
+        //    string msgtext = "Are you sure you want to remove this song?";
+        //    string txt = "Confirmation";
+        //    MessageBoxImage icon = MessageBoxImage.Question;
+
+        //    MessageBoxButton button = MessageBoxButton.YesNo;
+        //    MessageBoxResult result = MessageBox.Show(msgtext, txt, button, icon);
+
+
+
+
+
+        //}
     }
 }
