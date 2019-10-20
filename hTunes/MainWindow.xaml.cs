@@ -61,7 +61,7 @@ namespace hTunes
             }
         }
 
-        private void playlist_Selected(object sender, RoutedEventArgs e)
+        private void Playlist_Selected(object sender, RoutedEventArgs e)
         {
             RefreshSongs();
         }
@@ -97,7 +97,7 @@ namespace hTunes
             }
         }
 
-        private void newBtn_Click(object sender, RoutedEventArgs e)
+        private void NewBtn_Click(object sender, RoutedEventArgs e)
         {
             NewPlaylist np = new NewPlaylist();
             np.ShowDialog();
@@ -110,12 +110,12 @@ namespace hTunes
             }
         }
 
-        private void infoBtn_Click(object sender, RoutedEventArgs e)
+        private void InfoBtn_Click(object sender, RoutedEventArgs e)
         {
             ;
         }
 
-        private void playbtn_click(object sender, RoutedEventArgs e)
+        private void Playbtn_click(object sender, RoutedEventArgs e)
         {
             DataRowView song = dataGrid.SelectedItem as DataRowView;
             if (song == null) return;
@@ -125,12 +125,12 @@ namespace hTunes
             mediaPlayer.Play();
         }
 
-        private void stopbtn_click(object sender, RoutedEventArgs e)
+        private void Stopbtn_click(object sender, RoutedEventArgs e)
         {
             mediaPlayer.Stop();
         }
 
-        private void removebtn_click(object sender, RoutedEventArgs e)
+        private void Removebtn_click(object sender, RoutedEventArgs e)
         {
             string msgtext = "Are you sure you want to remove this song?";
             string txt = "Confirmation";
@@ -156,7 +156,7 @@ namespace hTunes
             }
         }
 
-        private void playlistListBox_DragOver(object sender, DragEventArgs e)
+        private void PlaylistListBox_DragOver(object sender, DragEventArgs e)
         {
             Label playlist = sender as Label;
             if (playlist != null)
@@ -164,16 +164,16 @@ namespace hTunes
                 Song s = (Song)e.Data.GetData(e.Data.GetFormats()[0]);
                 musicLib.AddSongToPlaylist(s.Id, playlist.Content.ToString());
 
-                playlist_Selected(playlistListBox, null);
+                Playlist_Selected(playlistListBox, null);
             }
         }
 
-        private void dataGrid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void DataGrid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             startPoint = e.GetPosition(null);
         }
 
-        private void dataGrid_MouseMove(object sender, MouseEventArgs e)
+        private void DataGrid_MouseMove(object sender, MouseEventArgs e)
         {
             Point mousePos = e.GetPosition(null);
             Vector diff = startPoint - mousePos;

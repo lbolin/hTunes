@@ -13,16 +13,16 @@
             <ColumnDefinition Width="744*"/>
         </Grid.ColumnDefinitions>
         <ListBox HorizontalAlignment="Left" Height="286" Margin="20.083,73,0,0" VerticalAlignment="Top" Width="127" RenderTransformOrigin="0.476,0.501" 
-                 Grid.ColumnSpan="2" Grid.Column="1" Name="playlistListBox" SelectionChanged="playlist_Selected">
+                 Grid.ColumnSpan="2" Grid.Column="1" Name="playlistListBox" SelectionChanged="Playlist_Selected">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding}" AllowDrop="True" Drop="playlistListBox_DragOver" ></Label>
+                    <Label Content="{Binding}" AllowDrop="True" Drop="PlaylistListBox_DragOver" ></Label>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
         <DataGrid x:Name="dataGrid"  AutoGenerateColumns="False"   HorizontalAlignment="Left" Height="286" Margin="130,73,0,0" 
                   VerticalAlignment="Top" Width="565" Grid.Column="2" CanUserAddRows="False" SelectionMode="Single" IsReadOnly="True"
-                  PreviewMouseLeftButtonDown="dataGrid_PreviewMouseLeftButtonDown" MouseMove="dataGrid_MouseMove">
+                  PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown" MouseMove="DataGrid_MouseMove">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id}" Visibility="Hidden"/>
                 <DataGridTextColumn Binding="{Binding Title}" Header="Title" Width="100"/>
@@ -42,22 +42,22 @@
             </DataGrid.RowDetailsTemplate>
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                <MenuItem Header="Play" Click="playbtn_click"/>
-                <MenuItem Header="Remove" Click="removebtn_click"/>
+                <MenuItem Header="Play" Click="Playbtn_click"/>
+                <MenuItem Header="Remove" Click="Removebtn_click"/>
             </ContextMenu>
             </DataGrid.ContextMenu>
 
         </DataGrid>
-        <Button Content="Play" HorizontalAlignment="Left" Margin="130,376,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2" Click="playbtn_click"/>
-        <Button Content="Stop" HorizontalAlignment="Left" Margin="234,376,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2" Click="stopbtn_click"/>
+        <Button Content="Play" HorizontalAlignment="Left" Margin="130,376,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2" Click="Playbtn_click"/>
+        <Button Content="Stop" HorizontalAlignment="Left" Margin="234,376,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2" Click="Stopbtn_click"/>
         <ToolBar HorizontalAlignment="Left" Height="41" Margin="20.083,10,0,0" VerticalAlignment="Top" Width="715" RenderTransformOrigin="-0.727,0.569" Grid.ColumnSpan="2" Grid.Column="1">
             <Button Click="OpenBtn_Click" ToolTip="Open">
                 <Image Source="open.png"/>
             </Button>
-            <Button Click="newBtn_Click" ToolTip="New Playlist">
+            <Button Click="NewBtn_Click" ToolTip="New Playlist">
                 <Image Source="new.png"/>
             </Button>
-            <Button Click="infoBtn_Click" ToolTip="About">
+            <Button Click="InfoBtn_Click" ToolTip="About">
                 <Image Source="info.png"/>
             </Button>
 
