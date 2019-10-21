@@ -15,6 +15,7 @@ namespace hTunes
         public string Length { set; get; }
         public string Filename { set; get; }
         public string AlbumImage { get; set; }
+        public int Position { get; set; }
         public string Details { get => "Title: " + Title + "\nArtist: " + Artist + "\nLength: " + Length; }
 
 

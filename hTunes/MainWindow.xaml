@@ -43,7 +43,8 @@
             <DataGrid.ContextMenu>
                 <ContextMenu>
                 <MenuItem Header="Play" Click="Playbtn_click"/>
-                <MenuItem Header="Remove" Click="Removebtn_click"/>
+                <MenuItem Name="RemoveBtn" Header="Remove" Click="Removebtn_click" IsEnabled="True"/>
+                <MenuItem Name="RemoveFromPlaylistBtn" Header="Remove from Playlist" Click="Removebtn_click" IsEnabled="False"/>
             </ContextMenu>
             </DataGrid.ContextMenu>
 

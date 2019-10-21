@@ -132,28 +132,28 @@ namespace hTunes
 
         private void Removebtn_click(object sender, RoutedEventArgs e)
         {
-            string msgtext = "Are you sure you want to remove this song?";
-            string txt = "Confirmation";
-            MessageBoxImage icon = MessageBoxImage.Question;
+            var playlist = playlistListBox.SelectedItem?.ToString();
+            Song s = dataGrid.SelectedItem as Song;
+            if (playlist == "All Music" || playlist == null)
+            {
+                string msgtext = "Are you sure you want to remove this song?";
+                string txt = "Confirmation";
+                MessageBoxImage icon = MessageBoxImage.Question;
+                MessageBoxButton button = MessageBoxButton.YesNo;
 
-            MessageBoxButton button = MessageBoxButton.YesNo;
-
-            if (MessageBox.Show(msgtext, txt, button, icon) == MessageBoxResult.Yes)
-            { 
-                var playlist = playlistListBox.SelectedItem?.ToString();
-                Song s = dataGrid.SelectedItem as Song;
-                if (playlist == "All Music" || playlist == null)
+                if (MessageBox.Show(msgtext, txt, button, icon) == MessageBoxResult.Yes)
                 {
                     musicLib.DeleteSong(s.Id);
                 }
-                else
-                {
-                    //musicLib.RemoveSongFromPlaylist()
-                    //remove from playlist
-                }
 
-                RefreshSongs();
             }
+            else
+            {
+                //remove from playlist
+                musicLib.RemoveSongFromPlaylist(s.Position, s.Id, playlist);
+            }
+
+            RefreshSongs();
         }
 
         private void PlaylistListBox_DragOver(object sender, DragEventArgs e)
@@ -198,6 +198,8 @@ namespace hTunes
                     Song s = musicLib.GetSong(int.Parse(row["id"].ToString()));
                     displayedSongs.Add(s);
                 }
+                RemoveBtn.IsEnabled = true;
+                RemoveFromPlaylistBtn.IsEnabled = false;
             }
             else
             {
@@ -208,9 +210,14 @@ namespace hTunes
                 foreach (DataRow row in musicLib.SongsForPlaylist(playlist).Rows)
                 {
                     Song s = musicLib.GetSong(int.Parse(row["id"].ToString()));
+                    s.Position = int.Parse(row["position"].ToString());
                     displayedSongs.Add(s);
                 }
+
+                RemoveBtn.IsEnabled = false;
+                RemoveFromPlaylistBtn.IsEnabled = true;
             }
+            dataGrid.SelectedItem = null;
             dataGrid.Items.Refresh();
         }
 
@@ -231,11 +238,6 @@ namespace hTunes
 
         //    MessageBoxButton button = MessageBoxButton.YesNo;
         //    MessageBoxResult result = MessageBox.Show(msgtext, txt, button, icon);
-
-
-
-
-
         //}
     }
 }
