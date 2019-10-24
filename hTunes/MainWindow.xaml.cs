@@ -112,7 +112,8 @@ namespace hTunes
 
         private void InfoBtn_Click(object sender, RoutedEventArgs e)
         {
-            ;
+           About about = new About();
+            about.Show();
         }
 
         private void Playbtn_click(object sender, RoutedEventArgs e)
