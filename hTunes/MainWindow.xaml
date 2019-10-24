@@ -6,6 +6,15 @@
         xmlns:local="clr-namespace:hTunes"
         mc:Ignorable="d"
         Title="hTunes" Height="450" Width="800" Icon="music.ico">
+    <Window.Resources>
+        <ControlTemplate x:Key="ButtonTemp" TargetType="Button">
+            <Border Name="Border" BorderThickness=".75" Width="60" Height="25" BorderBrush="Black" Background="AliceBlue" Padding="2">
+                <ContentPresenter HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Content="{TemplateBinding Content}"/>
+            </Border>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="11*"/>
@@ -42,15 +51,16 @@
             </DataGrid.RowDetailsTemplate>
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                <MenuItem Header="Play" Click="Playbtn_click"/>
-                <MenuItem Name="RemoveBtn" Header="Remove" Click="Removebtn_click" IsEnabled="True"/>
-                <MenuItem Name="RemoveFromPlaylistBtn" Header="Remove from Playlist" Click="Removebtn_click" IsEnabled="False"/>
-            </ContextMenu>
+                    <MenuItem Header="Play" Click="Playbtn_click"/>
+                    <MenuItem Name="RemoveBtn" Header="Remove" Click="Removebtn_click" IsEnabled="True"/>
+                    <MenuItem Name="RemoveFromPlaylistBtn" Header="Remove from Playlist" Click="Removebtn_click" IsEnabled="False"/>
+                </ContextMenu>
             </DataGrid.ContextMenu>
 
         </DataGrid>
-        <Button Content="Play" HorizontalAlignment="Left" Margin="130,376,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2" Click="Playbtn_click"/>
-        <Button Content="Stop" HorizontalAlignment="Left" Margin="234,376,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2" Click="Stopbtn_click"/>
+        
+        <Button Content="Play" Template="{StaticResource ButtonTemp}" HorizontalAlignment="Left" Margin="130,376,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2" Click="Playbtn_click"/>
+        <Button Content="Stop" Template="{StaticResource ButtonTemp}" HorizontalAlignment="Left" Margin="234,376,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2" Click="Stopbtn_click" RenderTransformOrigin="0.002,0.852"/>
         <ToolBar HorizontalAlignment="Left" Height="41" Margin="20.083,10,0,0" VerticalAlignment="Top" Width="715" RenderTransformOrigin="-0.727,0.569" Grid.ColumnSpan="2" Grid.Column="1">
             <Button Click="OpenBtn_Click" ToolTip="Open">
                 <Image Source="open.png"/>
@@ -63,6 +73,5 @@
             </Button>
 
         </ToolBar>
-
     </Grid>
 </Window>
