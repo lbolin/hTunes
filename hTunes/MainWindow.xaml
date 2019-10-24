@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:hTunes"
         mc:Ignorable="d"
-        Title="hTunes" Height="450" Width="800" Icon="music.ico">
+        Title="hTunes" Height="450" Width="800" Icon="music.ico" SizeToContent="WidthAndHeight">
     <Window.Resources>
         <ControlTemplate x:Key="ButtonTemp" TargetType="Button">
             <Border Name="Border" BorderThickness=".75" Width="60" Height="25" BorderBrush="Black" Background="AliceBlue" Padding="2">
@@ -21,6 +21,11 @@
             <ColumnDefinition Width="40*"/>
             <ColumnDefinition Width="744*"/>
         </Grid.ColumnDefinitions>
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>-->
+        
         <ListBox HorizontalAlignment="Left" Height="286" Margin="20.083,73,0,0" VerticalAlignment="Top" Width="127" RenderTransformOrigin="0.476,0.501" 
                  Grid.ColumnSpan="2" Grid.Column="1" Name="playlistListBox" SelectionChanged="Playlist_Selected">
             <ListBox.ItemTemplate>
@@ -29,8 +34,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <DataGrid x:Name="dataGrid"  AutoGenerateColumns="False"   HorizontalAlignment="Left" Height="286" Margin="130,73,0,0" 
-                  VerticalAlignment="Top" Width="565" Grid.Column="2" CanUserAddRows="False" SelectionMode="Single" IsReadOnly="True"
+        <DataGrid x:Name="dataGrid"  AutoGenerateColumns="False"   HorizontalAlignment="Left" Height="286" Margin="162,73,0,0" 
+                  VerticalAlignment="Top" Width="609" Grid.Column="1" CanUserAddRows="False" SelectionMode="Single" IsReadOnly="True"
                   PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown" MouseMove="DataGrid_MouseMove">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id}" Visibility="Hidden"/>
@@ -58,10 +63,10 @@
             </DataGrid.ContextMenu>
 
         </DataGrid>
-        
-        <Button Content="Play" Template="{StaticResource ButtonTemp}" HorizontalAlignment="Left" Margin="130,376,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2" Click="Playbtn_click"/>
-        <Button Content="Stop" Template="{StaticResource ButtonTemp}" HorizontalAlignment="Left" Margin="234,376,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2" Click="Stopbtn_click" RenderTransformOrigin="0.002,0.852"/>
-        <ToolBar HorizontalAlignment="Left" Height="41" Margin="20.083,10,0,0" VerticalAlignment="Top" Width="715" RenderTransformOrigin="-0.727,0.569" Grid.ColumnSpan="2" Grid.Column="1">
+
+        <Button Content="Play" Template="{StaticResource ButtonTemp}" HorizontalAlignment="Left" Margin="164,376,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="Playbtn_click"/>
+        <Button Content="Stop" Template="{StaticResource ButtonTemp}" HorizontalAlignment="Left" Margin="262,376,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="Stopbtn_click" RenderTransformOrigin="0.002,0.852"/>
+        <ToolBar HorizontalAlignment="Left" Height="41" Margin="20,10,0,0" VerticalAlignment="Top" Width="751" RenderTransformOrigin="-0.727,0.569" Grid.Column="1">
             <Button Click="OpenBtn_Click" ToolTip="Open">
                 <Image Source="open.png"/>
             </Button>

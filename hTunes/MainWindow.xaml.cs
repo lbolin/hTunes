@@ -231,14 +231,6 @@ namespace hTunes
                 playlistListBox.Items.Add(playlist);
             }
         }
-        //private void ShowMessageBox_Click(object sender, RoutedEventArgs e)
-        //{
-        //    string msgtext = "Are you sure you want to remove this song?";
-        //    string txt = "Confirmation";
-        //    MessageBoxImage icon = MessageBoxImage.Question;
-
-        //    MessageBoxButton button = MessageBoxButton.YesNo;
-        //    MessageBoxResult result = MessageBox.Show(msgtext, txt, button, icon);
-        //}
+       
     }
 }
