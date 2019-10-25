@@ -18,7 +18,7 @@
             </Label.Effect>
         </Label>
         <Label Content="Version 0.0.0.0.1" HorizontalAlignment="Left" Margin="36,129,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-        <Label Content="By Matthew Mlaw &amp; Lauren Bolin" HorizontalAlignment="Left" Margin="36,160,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Content="By Matthew Emlaw &amp; Lauren Bolin" HorizontalAlignment="Left" Margin="36,160,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Window>

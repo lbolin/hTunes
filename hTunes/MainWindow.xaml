@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:hTunes"
         mc:Ignorable="d"
-        Title="hTunes" Height="449.159" Width="800" Icon="music.ico" >
+        Title="hTunes" Height="449.159" Width="800" Icon="music.ico" Closing="Window_Closing" >
     <Window.Resources>
         <ControlTemplate x:Key="ButtonTemp" TargetType="Button">
             <Border Name="Border" BorderThickness=".75" Width="60" Height="25" BorderBrush="Black" Background="AliceBlue" >
@@ -24,7 +24,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <DataGrid x:Name="dataGrid"  AutoGenerateColumns="False"   HorizontalAlignment="Stretch" Margin="166,73,12,60" 
-                  VerticalAlignment="Stretch"  CanUserAddRows="False" SelectionMode="Single" IsReadOnly="True"
+                  VerticalAlignment="Stretch"  CanUserAddRows="False" SelectionMode="Single"
                   PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown" MouseMove="DataGrid_MouseMove">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id}" Visibility="Hidden"/>

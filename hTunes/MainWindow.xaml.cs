@@ -63,6 +63,10 @@ namespace hTunes
 
         private void Playlist_Selected(object sender, RoutedEventArgs e)
         {
+            foreach (var song in displayedSongs)
+            {
+                musicLib.UpdateSong(song.Id, song);
+            }
             RefreshSongs();
         }
 
@@ -233,6 +237,14 @@ namespace hTunes
                 playlistListBox.Items.Add(playlist);
             }
         }
-       
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            foreach (var song in displayedSongs)
+            {
+                musicLib.UpdateSong(song.Id, song);
+            }
+            //musicLib.Save();
+        }
     }
 }
