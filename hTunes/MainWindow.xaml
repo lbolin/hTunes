@@ -16,15 +16,15 @@
         </ControlTemplate>
     </Window.Resources>
     <Grid>
-        <ListBox HorizontalAlignment="Left" Height="286" Margin="20,73,0,0" VerticalAlignment="Top" Width="127" RenderTransformOrigin="0.476,0.501" Grid.Column="1" Name="playlistListBox" SelectionChanged="Playlist_Selected">
+        <ListBox HorizontalAlignment="Left" Margin="20,73,0,60" VerticalAlignment="Stretch" Width="127" RenderTransformOrigin="0.476,0.501" Grid.Column="1" Name="playlistListBox" SelectionChanged="Playlist_Selected">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Label Content="{Binding}" AllowDrop="True" Drop="PlaylistListBox_DragOver" ></Label>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <DataGrid x:Name="dataGrid"  AutoGenerateColumns="False"   HorizontalAlignment="Left" Height="286" Margin="166,73,0,0" 
-                  VerticalAlignment="Top" Width="605" CanUserAddRows="False" SelectionMode="Single" IsReadOnly="True"
+        <DataGrid x:Name="dataGrid"  AutoGenerateColumns="False"   HorizontalAlignment="Stretch" Margin="166,73,12,60" 
+                  VerticalAlignment="Stretch"  CanUserAddRows="False" SelectionMode="Single" IsReadOnly="True"
                   PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown" MouseMove="DataGrid_MouseMove">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id}" Visibility="Hidden"/>
@@ -53,9 +53,9 @@
 
         </DataGrid>
 
-        <Button Content="Play" Template="{StaticResource ButtonTemp}" HorizontalAlignment="Left" Margin="178,376,0,0" VerticalAlignment="Top" Width="75" Click="Playbtn_click" Height="25"/>
-        <Button Content="Stop" Template="{StaticResource ButtonTemp}" HorizontalAlignment="Left" Margin="272,376,0,0" VerticalAlignment="Top" Width="75" Click="Stopbtn_click" RenderTransformOrigin="0.002,0.852" Height="25"/>
-        <ToolBar HorizontalAlignment="Left" Height="41" Margin="20,10,0,0" VerticalAlignment="Top" Width="751" RenderTransformOrigin="-0.727,0.569" Grid.Column="1" Grid.ColumnSpan="2">
+        <Button Content="Play" Template="{StaticResource ButtonTemp}" HorizontalAlignment="Left" Margin="178,0,0,16" VerticalAlignment="Bottom" Width="75" Click="Playbtn_click" Height="25"/>
+        <Button Content="Stop" Template="{StaticResource ButtonTemp}" HorizontalAlignment="Left" Margin="272,0,0,16" VerticalAlignment="Bottom" Width="75" Click="Stopbtn_click" RenderTransformOrigin="0.002,0.852" Height="25"/>
+        <ToolBar HorizontalAlignment="Stretch" Height="41" Margin="20,10,10,0" VerticalAlignment="Top" RenderTransformOrigin="-0.727,0.569" Grid.Column="1" Grid.ColumnSpan="2">
             <Button Click="OpenBtn_Click" ToolTip="Open">
                 <Image Source="open.png"/>
             </Button>
