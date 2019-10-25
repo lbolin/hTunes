@@ -205,6 +205,8 @@ namespace hTunes
                     Song s = musicLib.GetSong(int.Parse(row["id"].ToString()));
                     displayedSongs.Add(s);
                 }
+
+                dataGrid.IsReadOnly = false;
                 RemoveBtn.IsEnabled = true;
                 RemoveFromPlaylistBtn.IsEnabled = false;
             }
@@ -221,6 +223,7 @@ namespace hTunes
                     displayedSongs.Add(s);
                 }
 
+                dataGrid.IsReadOnly = true;
                 RemoveBtn.IsEnabled = false;
                 RemoveFromPlaylistBtn.IsEnabled = true;
             }
