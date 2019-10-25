@@ -69,8 +69,10 @@ namespace hTunes
         private void OpenBtn_Click(object sender, RoutedEventArgs e)
         {
             // Create OpenFileDialog
-            Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog();
-            openFileDlg.Filter = "Media Files | *.mp3;*.m4a;*.wma;*.wav ";
+            Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = "Media Files | *.mp3;*.m4a;*.wma;*.wav "
+            };
 
             // Launch OpenFileDialog by calling ShowDialog method
             Nullable<bool> result = openFileDlg.ShowDialog();
