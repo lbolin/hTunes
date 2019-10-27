@@ -26,13 +26,13 @@ namespace hTunes
             InitializeComponent();
         }
 
-        private void okBtn_click(object sender, RoutedEventArgs e)
+        private void OkBtn_click(object sender, RoutedEventArgs e)
         {
             NewPlayListName = txtPlayListName.Text;
             this.Close();
         }
 
-        private void cancelBtn_click(object sender, RoutedEventArgs e)
+        private void CancelBtn_click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

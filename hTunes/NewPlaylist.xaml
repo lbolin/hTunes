@@ -9,8 +9,8 @@
     <Grid>
         <Label Content="Playlist name: " HorizontalAlignment="Left" Margin="28,30,0,0" VerticalAlignment="Top"/>
         <TextBox Name="txtPlayListName" HorizontalAlignment="Left" Height="23" Margin="132,34,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="238"/>
-        <Button Content="OK" HorizontalAlignment="Left" Margin="90,91,0,0" VerticalAlignment="Top" Width="75" Click="okBtn_click"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="242,91,0,0" VerticalAlignment="Top" Width="75" Click="cancelBtn_click"/>
+        <Button Content="OK" HorizontalAlignment="Left" Margin="90,91,0,0" VerticalAlignment="Top" Width="75" Click="OkBtn_click"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="242,91,0,0" VerticalAlignment="Top" Width="75" Click="CancelBtn_click"/>
 
     </Grid>
 </Window>
