@@ -13,6 +13,11 @@
                               VerticalAlignment="Center"
                               Content="{TemplateBinding Content}"/>
             </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="Border" Property="Background" Value="LightBlue"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
         </ControlTemplate>
     </Window.Resources>
     <Grid>
@@ -46,8 +51,7 @@
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Play" Click="Playbtn_click"/>
-                    <MenuItem Name="RemoveBtn" Header="Remove" Click="Removebtn_click" IsEnabled="True"/>
-                    <MenuItem Name="RemoveFromPlaylistBtn" Header="Remove from Playlist" Click="Removebtn_click" IsEnabled="False"/>
+                    <MenuItem Name="RemoveBtn" Header="Remove" Click="Removebtn_click"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
 

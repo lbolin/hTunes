@@ -207,8 +207,8 @@ namespace hTunes
                 }
 
                 dataGrid.IsReadOnly = false;
-                RemoveBtn.IsEnabled = true;
-                RemoveFromPlaylistBtn.IsEnabled = false;
+                RemoveBtn.Header = "Remove";
+               
             }
             else
             {
@@ -224,8 +224,7 @@ namespace hTunes
                 }
 
                 dataGrid.IsReadOnly = true;
-                RemoveBtn.IsEnabled = false;
-                RemoveFromPlaylistBtn.IsEnabled = true;
+                RemoveBtn.Header = "Remove from Playlist";
             }
             dataGrid.SelectedItem = null;
             dataGrid.Items.Refresh();
@@ -247,7 +246,7 @@ namespace hTunes
             {
                 musicLib.UpdateSong(song.Id, song);
             }
-            //musicLib.Save();
+            musicLib.Save();
         }
     }
 }
